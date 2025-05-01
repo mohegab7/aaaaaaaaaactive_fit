@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "761445253847",
+    "project_id": "active-fit-272a7",
+    "storage_bucket": "active-fit-272a7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761445253847:android:f77e7764d0610369f36692",
+        "android_client_info": {
+          "package_name": "com.example.active_fit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEyMFbPJQwI_s6y6vpsUElLWsByCXvYl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
