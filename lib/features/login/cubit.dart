@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginCuibt extends Cubit<LoginStates> {
@@ -46,27 +46,27 @@ class LoginCuibt extends Cubit<LoginStates> {
     });
   }
 
-  void loginwithfacbook() {
-    emit(LoginWithFacebookLoadingState());
-    FacebookAuth.instance
-        .login(permissions: ["public_profile", "email"]).then((value) {
-      FacebookAuth.instance.getUserData().then((userData) {
-        print(userData);
-        print(value.accessToken?.tokenString);
-        final credential =
-            FacebookAuthProvider.credential(value.accessToken!.tokenString);
-        FirebaseAuth.instance.signInWithCredential(credential).then((value) {
-          print(value.user?.email);
-          print(value.user?.uid);
-          uId = value.user?.uid;
-          getUserdata();
-          emit(LoginWithFacebookSuccessState());
-        }).catchError((error) {
-          emit(LoginErrorState(error.toString()));
-        });
-      });
-    });
-  }
+  // void loginwithfacbook() {
+  //   emit(LoginWithFacebookLoadingState());
+  //   FacebookAuth.instance
+  //       .login(permissions: ["public_profile", "email"]).then((value) {
+  //     FacebookAuth.instance.getUserData().then((userData) {
+  //       print(userData);
+  //       print(value.accessToken?.tokenString);
+  //       final credential =
+  //           FacebookAuthProvider.credential(value.accessToken!.tokenString);
+  //       FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+  //         print(value.user?.email);
+  //         print(value.user?.uid);
+  //         uId = value.user?.uid;
+  //         getUserdata();
+  //         emit(LoginWithFacebookSuccessState());
+  //       }).catchError((error) {
+  //         emit(LoginErrorState(error.toString()));
+  //       });
+  //     });
+  //   });
+  // }
 
   Future<User?> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();

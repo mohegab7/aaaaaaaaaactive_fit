@@ -179,7 +179,7 @@ class _OnboardingOverviewPageBodyState extends State<OnboardingOverviewPageBody>
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = constraints.maxWidth;
-        final isVerySmallScreen = screenWidth < 320;
+        final isVerySmallScreen = screenWidth < 350;
         final isMediumScreen = screenWidth > 400;
 
         return GridView.count(
