@@ -65,7 +65,8 @@ class TrackedDayEntity extends Equatable {
     }
   }
 
-  bool _hasExceededMaxKcalDifferenceGoal(double calorieGoal, caloriesTracked) {
+  bool _hasExceededMaxKcalDifferenceGoal(
+      double calorieGoal, caloriesTracked) {
     double difference = calorieGoal - caloriesTracked;
 
     if (calorieGoal < caloriesTracked) {

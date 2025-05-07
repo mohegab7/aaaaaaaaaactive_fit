@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 
-
 class ActivityDetailScreen extends StatefulWidget {
   const ActivityDetailScreen({super.key});
 
@@ -204,7 +203,7 @@ class _ActivityDetailScreenState extends State<ActivityDetailScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(S.of(context).infoAddedActivityLabel)));
     Navigator.of(context)
-        .popUntil(ModalRoute.withName(NavigationOptions.mainRoute));
+        .pushNamedAndRemoveUntil(NavigationOptions.mainRoute, (route) => false);
   }
 }
 

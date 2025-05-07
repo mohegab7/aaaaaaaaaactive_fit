@@ -6,7 +6,6 @@ import 'package:active_fit/features/add_meal/data/dto/off/off_product_nutriments
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
-
 class MealNutrimentsEntity extends Equatable {
   final double? energyKcal100;
 
@@ -33,6 +32,31 @@ class MealNutrimentsEntity extends Equatable {
       required this.sugars100,
       required this.saturatedFat100,
       required this.fiber100});
+
+  double? getNutrientValue(String nutrientName) {
+    switch (nutrientName.toLowerCase()) {
+      case 'energy':
+      case 'calories':
+        return energyKcal100;
+      case 'protein':
+        return proteins100;
+      case 'carbohydrate':
+      case 'carbs':
+        return carbohydrates100;
+      case 'total lipid (fat)':
+      case 'fat':
+        return fat100;
+      case 'sugars':
+        return sugars100;
+      case 'saturated fat':
+        return saturatedFat100;
+      case 'fiber':
+      case 'dietary fiber':
+        return fiber100;
+      default:
+        return null;
+    }
+  }
 
   factory MealNutrimentsEntity.empty() => const MealNutrimentsEntity(
       energyKcal100: null,
@@ -75,50 +99,84 @@ class MealNutrimentsEntity extends Equatable {
 
   factory MealNutrimentsEntity.fromFDCNutriments(
       List<FDCFoodNutrimentDTO> fdcNutriment) {
-    // FDC Food nutriments can have different values for Energy [Energy,
-    // Energy (Atwater General Factors), Energy (Atwater Specific Factors)]
-    final energyTotal = fdcNutriment
-            .firstWhereOrNull(
-                (nutriment) => nutriment.nutrientId == FDCConst.fdcTotalKcalId)
-            ?.amount ??
-        fdcNutriment
-            .firstWhereOrNull((nutriment) =>
-                nutriment.nutrientId == FDCConst.fdcKcalAtwaterGeneralId)
-            ?.amount ??
-        fdcNutriment
-            .firstWhereOrNull((nutriment) =>
-                nutriment.nutrientId == FDCConst.fdcKcalAtwaterSpecificId)
-            ?.amount;
+    print("===== Starting Nutrient Mapping =====");
+    print("Total nutrients received: ${fdcNutriment.length}");
 
-    final carbsTotal = fdcNutriment
-        .firstWhereOrNull(
-            (nutriment) => nutriment.nutrientId == FDCConst.fdcTotalCarbsId)
-        ?.amount;
+    // Get nutrient by ID or try to find by name if ID doesn't match
+    double? findNutrientAmount(
+        List<int> nutrientIds, List<String> nutrientNames) {
+      print(
+          "\nLooking for nutrient with IDs: $nutrientIds or names: $nutrientNames");
 
-    final fatTotal = fdcNutriment
-        .firstWhereOrNull(
-            (nutriment) => nutriment.nutrientId == FDCConst.fdcTotalFatId)
-        ?.amount;
+      var nutrient = fdcNutriment.firstWhereOrNull((n) {
+        print(
+            "Checking nutrient - ID: ${n.nutrientId}, Name: ${n.name}, Amount: ${n.amount}");
+        return n.nutrientId != null && nutrientIds.contains(n.nutrientId);
+      });
 
-    final proteinsTotal = fdcNutriment
-        .firstWhereOrNull(
-            (nutriment) => nutriment.nutrientId == FDCConst.fdcTotalProteinsId)
-        ?.amount;
+      if (nutrient == null && nutrientNames.isNotEmpty) {
+        print("No match by ID, trying to match by name...");
+        nutrient = fdcNutriment.firstWhereOrNull((n) {
+          if (n.name == null) return false;
+          final matches = nutrientNames.any(
+              (name) => n.name!.toLowerCase().contains(name.toLowerCase()));
+          print("Checking name match: ${n.name} - Matches: $matches");
+          return matches;
+        });
+      }
 
-    final sugarTotal = fdcNutriment
-        .firstWhereOrNull(
-            (nutriment) => nutriment.nutrientId == FDCConst.fdcTotalSugarId)
-        ?.amount;
+      if (nutrient != null) {
+        print("Found matching nutrient - Amount: ${nutrient.amount}");
+      } else {
+        print("No matching nutrient found");
+      }
 
-    final saturatedFatTotal = fdcNutriment
-        .firstWhereOrNull((nutriment) =>
-            nutriment.nutrientId == FDCConst.fdcTotalSaturatedFatId)
-        ?.amount;
+      return nutrient?.amount;
+    }
 
-    final fiberTotal = fdcNutriment
-        .firstWhereOrNull((nutriment) =>
-            nutriment.nutrientId == FDCConst.fdcTotalDietaryFiberId)
-        ?.amount;
+    final energyTotal = findNutrientAmount([
+          FDCConst.fdcTotalKcalId,
+          FDCConst.fdcKcalAtwaterGeneralId,
+          FDCConst.fdcKcalAtwaterSpecificId
+        ], [
+          'energy',
+          'calories',
+          'kcal'
+        ]) ??
+        0.0;
+
+    final carbsTotal = findNutrientAmount(
+            [FDCConst.fdcTotalCarbsId], ['carbohydrate', 'carbs']) ??
+        0.0;
+
+    final fatTotal =
+        findNutrientAmount([FDCConst.fdcTotalFatId], ['fat', 'total lipids']) ??
+            0.0;
+
+    final proteinsTotal =
+        findNutrientAmount([FDCConst.fdcTotalProteinsId], ['protein']) ?? 0.0;
+
+    final sugarTotal = findNutrientAmount(
+            [FDCConst.fdcTotalSugarId], ['sugars', 'total sugars']) ??
+        0.0;
+
+    final saturatedFatTotal = findNutrientAmount(
+            [FDCConst.fdcTotalSaturatedFatId],
+            ['saturated fat', 'saturated fatty acids']) ??
+        0.0;
+
+    final fiberTotal = findNutrientAmount(
+            [FDCConst.fdcTotalDietaryFiberId], ['fiber', 'dietary fiber']) ??
+        0.0;
+
+    print("\n===== Final Mapped Values =====");
+    print("Energy: $energyTotal");
+    print("Carbs: $carbsTotal");
+    print("Fat: $fatTotal");
+    print("Proteins: $proteinsTotal");
+    print("Sugar: $sugarTotal");
+    print("Saturated Fat: $saturatedFatTotal");
+    print("Fiber: $fiberTotal");
 
     return MealNutrimentsEntity(
         energyKcal100: energyTotal,

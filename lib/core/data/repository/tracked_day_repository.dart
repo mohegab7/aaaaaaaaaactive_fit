@@ -98,22 +98,15 @@ class TrackedDayRepository {
   }
 
   Future<void> addDayMacrosTracked(DateTime day,
-      {double? carbsTracked,
-      double? fatTracked,
-      double? proteinTracked}) async {
+      {double? carbsTracked, double? fatTracked, double? proteinTracked}) async {
     _trackedDayDataSource.addDayMacroTracked(day,
-        carbsAmount: carbsTracked,
-        fatAmount: fatTracked,
-        proteinAmount: proteinTracked);
+        carbsAmount: carbsTracked, fatAmount: fatTracked, proteinAmount: proteinTracked);
   }
 
   Future<void> removeDayMacrosTracked(DateTime day,
-      {double? carbsTracked,
-      double? fatTracked,
-      double? proteinTracked}) async {
+      {double? carbsTracked, double? fatTracked, double? proteinTracked}) async {
     _trackedDayDataSource.removeDayMacroTracked(day,
-        carbsAmount: carbsTracked,
-        fatAmount: fatTracked,
-        proteinAmount: proteinTracked);
+        carbsAmount: carbsTracked, fatAmount: fatTracked, proteinAmount: proteinTracked);
   }
+
 }

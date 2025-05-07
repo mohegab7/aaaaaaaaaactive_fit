@@ -8,14 +8,23 @@ class SearchProductsUseCase {
 
   Future<List<MealEntity>> searchOFFProductsByString(
       String searchString) async {
-    final products =
-        await _productsRepository.getOFFProductsByString(searchString);
-    return products;
+    try {
+      final products =
+          await _productsRepository.getOFFProductsByString(searchString);
+      return products;
+    } catch (e) {
+      print("Error in searchOFFProductsByString: $e");
+      throw Exception("Error searching OFF products: $e");
+    }
   }
 
-  Future<List<MealEntity>> searchFDCFoodByString(String searchString) async {
-    final foods =
-        await _productsRepository.getSupabaseFDCFoodsByString(searchString);
-    return foods;
+  Future<List<MealEntity>> searchFoodByString(String searchString) async {
+    try {
+      final foods = await _productsRepository.getFoodByString(searchString);
+      return foods;
+    } catch (e) {
+      print("Error in searchFoodByString: $e");
+      throw Exception("Error searching foods: $e");
+    }
   }
 }

@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 
-
 part 'food_event.dart';
 
 part 'food_state.dart';
@@ -21,28 +20,36 @@ class FoodBloc extends Bloc<FoodEvent, FoodState> {
   FoodBloc(this._searchProductUseCase, this._getConfigUsecase)
       : super(FoodInitial()) {
     on<LoadFoodEvent>((event, emit) async {
-      if (event.searchString != _searchString) {
-        _searchString = event.searchString;
-        emit(FoodLoadingState());
-        try {
-          final result =
-              await _searchProductUseCase.searchFDCFoodByString(_searchString);
-          final config = await _getConfigUsecase.getConfig();
+      _searchString = event.searchString;
 
-          emit(FoodLoadedState(
-              food: result, usesImperialUnits: config.usesImperialUnits));
-        } catch (error) {
-          log.severe(error);
-          emit(FoodFailedState());
-         print(error.toString());
+      if (_searchString.isEmpty) {
+        // Do not load food list if search string is empty
+        emit(FoodInitial());
+        return;
+      }
+
+      emit(FoodLoadingState());
+
+      try {
+        final result =
+            await _searchProductUseCase.searchFoodByString(_searchString);
+        if (result.isEmpty) {
+          log.warning("No food items found for search: $_searchString");
         }
+        final config = await _getConfigUsecase.getConfig();
+        emit(FoodLoadedState(
+            food: result, usesImperialUnits: config.usesImperialUnits));
+      } catch (error) {
+        log.severe("Error loading food: $error");
+        emit(FoodFailedState());
       }
     });
+
     on<RefreshFoodEvent>((event, emit) async {
       emit(FoodLoadingState());
       try {
         final result =
-            await _searchProductUseCase.searchFDCFoodByString(_searchString);
+            await _searchProductUseCase.searchFoodByString(_searchString);
         emit(FoodLoadedState(food: result));
       } catch (error) {
         log.severe(error);

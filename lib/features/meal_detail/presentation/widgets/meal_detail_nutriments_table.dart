@@ -3,7 +3,6 @@ import 'package:active_fit/features/add_meal/domain/entity/meal_entity.dart';
 import 'package:active_fit/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
-
 class MealDetailNutrimentsTable extends StatelessWidget {
   final MealEntity product;
   final bool usesImperialUnits;
@@ -19,6 +18,14 @@ class MealDetailNutrimentsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (product.nutriments.energyKcal100 == null ||
+        product.nutriments.carbohydrates100 == null ||
+        product.nutriments.fat100 == null ||
+        product.nutriments.proteins100 == null) {
+      print(
+          "MealDetailNutrimentsTable: Missing nutritional data for ${product.name}"); // Debugging
+    }
+
     final textStyleNormal =
         Theme.of(context).textTheme.bodyMedium ?? const TextStyle();
     final textStyleBold = Theme.of(context)

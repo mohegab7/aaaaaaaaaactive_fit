@@ -25,71 +25,92 @@ class _OnboardingIntroPageBodyState extends State<OnboardingIntroPageBody> {
       future: AppConst.getVersionNumber(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          return Column(
-            children: [
-              AppBannerVersion(
-                versionNumber: snapshot.requireData,
-              ),
-              const SizedBox(height: 32.0),
-              Text(S.of(context).appDescription,
-                  // 'hello',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.center),
-              const SizedBox(height: 32.0),
-              Text(
-                S.of(context).onboardingIntroDescription,
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16.0),
-              ListTile(
-                onTap: () => _togglePolicy(),
-                title: Text.rich(
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                children: [
+                  AppBannerVersion(
+                    versionNumber: snapshot.requireData,
+                  ),
+                  const SizedBox(height: 40.0),
+                  Text(
+                    S.of(context).appDescription,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                     textAlign: TextAlign.center,
-                    TextSpan(
-                        text: S.of(context).readLabel,
-                        style: Theme.of(context).textTheme.bodySmall,
-                        children: [
-                          // TextSpan(
-                          //     text: 'hello',
-                          //     // text: ' ${S.of(context).privacyPolicyLabel}',
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .bodySmall
-                          //         ?.copyWith(
-                          //             color:
-                          //                 Theme.of(context).colorScheme.primary,
-                          //             decoration: TextDecoration.underline),
-                          //     recognizer: TapGestureRecognizer()
-                          //       ..onTap = () {
-                          //         _launchUrl();
-                          //       }),
-                        ])),
-                leading: Checkbox(
-                  value: _acceptedPolicy,
-                  onChanged: (value) {
-                    if (value != null) {
-                      _togglePolicy();
-                    }
-                  },
-                ),
-              ),
-              ListTile(
-                onTap: () => _toggleDataCollection(),
-                title: Text(S.of(context).dataCollectionLabel,
+                  ),
+                  const SizedBox(height: 24.0),
+                  Text(
+                    S.of(context).onboardingIntroDescription,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          height: 1.5,
+                        ),
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodySmall),
-                leading: Checkbox(
-                  value: _acceptedDataCollection,
-                  onChanged: (value) => _toggleDataCollection(),
-                ),
-              )
-            ],
+                  ),
+                  const SizedBox(height: 32.0),
+                  _buildCheckboxTile(
+                    value: _acceptedPolicy,
+                    onChanged: _togglePolicy,
+                    title: S.of(context).readLabel,
+                    subtitle: S.of(context).privacyPolicyLabel,
+                  ),
+                  const SizedBox(height: 16.0),
+                  _buildCheckboxTile(
+                    value: _acceptedDataCollection,
+                    onChanged: _toggleDataCollection,
+                    title: S.of(context).dataCollectionLabel,
+                  ),
+                ],
+              ),
+            ),
           );
         } else {
           return const SizedBox();
         }
       },
+    );
+  }
+
+  Widget _buildCheckboxTile({
+    required bool value,
+    required VoidCallback onChanged,
+    required String title,
+    String? subtitle,
+  }) {
+    return Card(
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(
+          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+        ),
+      ),
+      child: ListTile(
+        onTap: onChanged,
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+        ),
+        subtitle: subtitle != null
+            ? Text(
+                subtitle,
+                style: Theme.of(context).textTheme.bodySmall,
+              )
+            : null,
+        leading: Checkbox(
+          value: value,
+          onChanged: (value) => onChanged(),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+      ),
     );
   }
 

@@ -17,7 +17,6 @@ import 'package:active_fit/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class AddMealScreen extends StatefulWidget {
   const AddMealScreen({super.key});
 
@@ -172,14 +171,21 @@ class _AddMealScreenState extends State<AddMealScreen>
                               child: CircularProgressIndicator(),
                             );
                           } else if (state is FoodLoadedState) {
+                            print(
+                                "Displaying ${state.food.length} food items"); // Debugging
                             return state.food.isNotEmpty
                                 ? Flexible(
                                     child: ListView.builder(
                                         itemCount: state.food.length,
                                         itemBuilder: (context, index) {
+                                          final meal = state.food[index];
+                                          print(
+                                              "Rendering MealItemCard for: ${meal.name}"); // Debugging
+                                          print(
+                                              "Meal: ${meal.name}, energy: ${meal.nutriments.energyKcal100}"); // Debug
                                           return MealItemCard(
                                             day: _day,
-                                            mealEntity: state.food[index],
+                                            mealEntity: meal,
                                             addMealType: _mealType,
                                             usesImperialUnits:
                                                 state.usesImperialUnits,
@@ -187,9 +193,24 @@ class _AddMealScreenState extends State<AddMealScreen>
                                         }))
                                 : const NoResultsWidget();
                           } else if (state is FoodFailedState) {
-                            return ErrorDialog(
-                              errorText: S.of(context).errorFetchingProductData,
-                              onRefreshPressed: _onFoodRefreshButtonPressed,
+                            print(
+                                "Failed to load food items for search: ${_searchStringListener.value}"); // Debugging
+                            return Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    S.of(context).errorFetchingProductData,
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  const SizedBox(height: 16),
+                                  ElevatedButton(
+                                    onPressed: _onFoodRefreshButtonPressed,
+                                    child: Text(S.of(context).dialogOKLabel),
+                                  ),
+                                ],
+                              ),
                             );
                           } else {
                             return const SizedBox();
@@ -260,13 +281,22 @@ class _AddMealScreenState extends State<AddMealScreen>
   }
 
   void _onSearchSubmit(String inputText) {
+    print("Search submitted: $inputText"); // Debugging
     switch (_tabController.index) {
       case 0:
         _productsBloc.add(LoadProductsEvent(searchString: inputText));
+        break;
       case 1:
-        _foodBloc.add(LoadFoodEvent(searchString: inputText));
+        if (inputText.isNotEmpty) {
+          _foodBloc.add(LoadFoodEvent(searchString: inputText));
+        } else {
+          // Do not load food list if search string is empty
+          _foodBloc.add(const LoadFoodEvent(searchString: ""));
+        }
+        break;
       case 2:
         _recentMealBloc.add(LoadRecentMealEvent(searchString: inputText));
+        break;
     }
   }
 

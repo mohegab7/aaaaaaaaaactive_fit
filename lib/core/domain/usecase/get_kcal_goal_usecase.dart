@@ -10,8 +10,8 @@ class GetKcalGoalUsecase {
   final ConfigRepository _configRepository;
   final UserActivityRepository _userActivityRepository;
 
-  GetKcalGoalUsecase(this._userRepository, this._configRepository,
-      this._userActivityRepository);
+  GetKcalGoalUsecase(
+      this._userRepository, this._configRepository, this._userActivityRepository);
 
   Future<double> getKcalGoal(
       {UserEntity? userEntity,

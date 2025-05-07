@@ -19,10 +19,8 @@ class AppBannerVersion extends StatelessWidget {
         Text(
           S.of(context).appVersionName(versionNumber),
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withValues(alpha: 0.7)),
+              color:
+                  Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
         )
       ],
     );

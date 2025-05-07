@@ -19,8 +19,7 @@ class IntakeRepository {
     await _intakeDataSource.deleteIntakeFromId(intakeEntity.id);
   }
 
-  Future<IntakeEntity?> updateIntake(
-      String intakeId, Map<String, dynamic> fields) async {
+  Future<IntakeEntity?> updateIntake(String intakeId, Map<String, dynamic> fields) async {
     var result = await _intakeDataSource.updateIntake(intakeId, fields);
     return result == null ? null : IntakeEntity.fromIntakeDBO(result);
   }

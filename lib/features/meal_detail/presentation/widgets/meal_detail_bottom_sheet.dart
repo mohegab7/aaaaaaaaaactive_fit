@@ -10,7 +10,6 @@ import 'package:active_fit/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class MealDetailBottomSheet extends StatelessWidget {
   final MealEntity product;
   final DateTime day;
@@ -172,11 +171,13 @@ class MealDetailBottomSheet extends StatelessWidget {
     locator<DiaryBloc>().add(const LoadDiaryYearEvent());
     locator<CalendarDayBloc>().add(LoadCalendarDayEvent(DateTime.now()));
 
-    // Show snackbar and return to dashboard
+    // Show snackbar
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(S.of(context).infoAddedIntakeLabel)));
+
+    // Return to Home Screen by popping all routes until reaching the main route
     Navigator.of(context)
-        .popUntil(ModalRoute.withName(NavigationOptions.mainRoute));
+        .pushNamedAndRemoveUntil(NavigationOptions.mainRoute, (route) => false);
   }
 
   DropdownMenuItem<String> _getServingDropdownItem(BuildContext context) {

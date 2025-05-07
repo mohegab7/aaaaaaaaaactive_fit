@@ -24,6 +24,7 @@ class MealItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Rendering MealItemCard for: ${mealEntity.name}"); // Debugging
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -73,12 +74,22 @@ class MealItemCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis),
-            subtitle: mealEntity.mealQuantity != null
-                ? MealValueUnitText(
-                    value: double.parse(mealEntity.mealQuantity ?? "0"),
+            subtitle: Builder(
+              builder: (context) {
+                final energy = mealEntity.nutriments.getNutrientValue('energy');
+                print(
+                    "MealItemCard: ${mealEntity.name} energy: $energy"); // Debug
+                if (energy != null && energy > 0) {
+                  return MealValueUnitText(
+                    value: energy,
                     meal: mealEntity,
-                    usesImperialUnits: usesImperialUnits)
-                : const SizedBox(),
+                    usesImperialUnits: usesImperialUnits,
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
             trailing: IconButton(
               style: IconButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.onSurface,
@@ -94,6 +105,13 @@ class MealItemCard extends StatelessWidget {
   }
 
   void _onItemPressed(BuildContext context) {
+    if (mealEntity.nutriments.energyKcal100 == null ||
+        mealEntity.nutriments.carbohydrates100 == null ||
+        mealEntity.nutriments.fat100 == null ||
+        mealEntity.nutriments.proteins100 == null) {
+      print(
+          "MealItemCard: Missing nutritional data for ${mealEntity.name}"); // Debugging
+    }
     Navigator.of(context).pushNamed(NavigationOptions.mealDetailRoute,
         arguments: MealDetailScreenArguments(
             mealEntity, addMealType.getIntakeType(), day, usesImperialUnits));

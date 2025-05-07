@@ -1,8 +1,8 @@
 // import 'package:flutter/material.dart';
-// import 'package:opennutritracker/core/domain/entity/user_bmi_entity.dart';
-// import 'package:opennutritracker/core/presentation/widgets/info_dialog.dart';
-// import 'package:opennutritracker/core/utils/extensions.dart';
-// import 'package:opennutritracker/generated/l10n.dart';
+// import 'package:active_fit/core/domain/entity/user_bmi_entity.dart';
+// import 'package:active_fit/core/presentation/widgets/info_dialog.dart';
+// import 'package:active_fit/core/utils/extensions.dart';
+// import 'package:active_fit/generated/l10n.dart';
 
 // class BMIOverview extends StatelessWidget {
 //   final double bmiValue;

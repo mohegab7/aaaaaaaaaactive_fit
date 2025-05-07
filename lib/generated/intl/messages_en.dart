@@ -50,13 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "allItemsLabel": MessageLookupByLibrary.simpleMessage("All"),
         "alphaVersionName": MessageLookupByLibrary.simpleMessage("[Alpha]"),
         "appDescription": MessageLookupByLibrary.simpleMessage(
-            "ActiveFit is a free calorie and nutrient tracker that respects your privacy."),
-        "appLicenseLabel": MessageLookupByLibrary.simpleMessage("Cs-07 GP"),
-        "appTitle": MessageLookupByLibrary.simpleMessage("ActiveFit"),
+            "active_fit is a free and open-source calorie and nutrient tracker that respects your privacy."),
+        "appLicenseLabel":
+            MessageLookupByLibrary.simpleMessage("GPL-3.0 license"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("Activefit"),
         "appVersionName": m0,
         "baseQuantityLabel":
             MessageLookupByLibrary.simpleMessage("Base quantity (g/ml)"),
-        "betaVersionName": MessageLookupByLibrary.simpleMessage(" "),
+        "betaVersionName": MessageLookupByLibrary.simpleMessage(""),
         "bmiInfo": MessageLookupByLibrary.simpleMessage(
             "Body Mass Index (BMI) is a index to classify overweight and obesity in adults. It is defined as weight in kilograms divided by the square of height in meters (kg/m²).\n\nBMI does not differentiate between fat and muscle mass and can be misleading for some individuals."),
         "bmiLabel": MessageLookupByLibrary.simpleMessage("BMI"),
@@ -97,7 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dailyKcalAdjustmentLabel":
             MessageLookupByLibrary.simpleMessage("Daily Kcal adjustment:"),
         "dataCollectionLabel": MessageLookupByLibrary.simpleMessage(
-            "I know that this app is a graduation project and it's under Developing. "),
+            "Support development by providing anonymous usage data"),
         "deleteTimeDialogContent": MessageLookupByLibrary.simpleMessage(
             "Do want to delete the selected item?"),
         "deleteTimeDialogTitle":
@@ -112,7 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "e.g. soup, chicken, wine ..."),
         "dinnerLabel": MessageLookupByLibrary.simpleMessage("Dinner"),
         "disclaimerText": MessageLookupByLibrary.simpleMessage(
-            "ActiveFit is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended.\n\n\nThe application is still under development [GraduationProject]. Errors, bugs and crashes may occur."),
+            "Activefit is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended.\n\n\nThe application is still under development. Errors, bugs and crashes may occur."),
         "editItemDialogTitle":
             MessageLookupByLibrary.simpleMessage("Edit item"),
         "editMealLabel": MessageLookupByLibrary.simpleMessage("Edit meal"),
@@ -133,9 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "fiberLabel": MessageLookupByLibrary.simpleMessage("fiber"),
         "flOzUnit": MessageLookupByLibrary.simpleMessage("fl.oz"),
         "ftLabel": MessageLookupByLibrary.simpleMessage("ft"),
-        "genderFemaleLabel": MessageLookupByLibrary.simpleMessage("♀ Female"),
+        "genderFemaleLabel": MessageLookupByLibrary.simpleMessage("♀ female"),
         "genderLabel": MessageLookupByLibrary.simpleMessage("Gender"),
-        "genderMaleLabel": MessageLookupByLibrary.simpleMessage("♂ Male"),
+        "genderMaleLabel": MessageLookupByLibrary.simpleMessage("♂ male"),
         "goalGainWeight": MessageLookupByLibrary.simpleMessage("Gain Weight"),
         "goalLabel": MessageLookupByLibrary.simpleMessage("Goal"),
         "goalLoseWeight": MessageLookupByLibrary.simpleMessage("Lose Weight"),
@@ -183,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No meals recently added"),
         "noResultsFound":
             MessageLookupByLibrary.simpleMessage("No results found"),
+        "notAvailableLabel": MessageLookupByLibrary.simpleMessage("N/A"),
         "nothingAddedLabel":
             MessageLookupByLibrary.simpleMessage("Nothing added"),
         "nutritionInfoLabel":
@@ -577,11 +579,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicyLabel":
             MessageLookupByLibrary.simpleMessage("Privacy policy"),
         "profileLabel": MessageLookupByLibrary.simpleMessage("Profile"),
-        "cameraLabel": MessageLookupByLibrary.simpleMessage("Camera"),
         "proteinLabel": MessageLookupByLibrary.simpleMessage("protein"),
         "quantityLabel": MessageLookupByLibrary.simpleMessage("Quantity"),
         "readLabel": MessageLookupByLibrary.simpleMessage(
-            "Pleas check this box to confirm starting ActiveFit."),
+            "I have read and accept the privacy policy."),
         "recentlyAddedLabel": MessageLookupByLibrary.simpleMessage("Recently"),
         "reportErrorDialogText": MessageLookupByLibrary.simpleMessage(
             "Do you want to report an error to the developer?"),
@@ -589,7 +590,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saturatedFatLabel":
             MessageLookupByLibrary.simpleMessage("saturated fat"),
         "scanProductLabel":
-            MessageLookupByLibrary.simpleMessage("Scan a Product"),
+            MessageLookupByLibrary.simpleMessage("Scan Product"),
         "searchDefaultLabel":
             MessageLookupByLibrary.simpleMessage("Please enter a search word"),
         "searchFoodPage": MessageLookupByLibrary.simpleMessage("Food"),
@@ -607,6 +608,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select Weight"),
         "sendAnonymousUserData":
             MessageLookupByLibrary.simpleMessage("Send anonymous usage data"),
+        "servingLabel": MessageLookupByLibrary.simpleMessage("Serving"),
         "servingSizeLabelImperial":
             MessageLookupByLibrary.simpleMessage("Serving size (oz/fl oz)"),
         "servingSizeLabelMetric":

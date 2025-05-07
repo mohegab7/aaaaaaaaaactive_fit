@@ -1,10 +1,9 @@
-import 'package:active_fit/core/presentation/widgets/activity_card.dart';
-import 'package:active_fit/core/utils/navigation_options.dart';
 import 'package:flutter/material.dart';
 import 'package:active_fit/core/domain/entity/user_activity_entity.dart';
-import 'package:active_fit/features/add_activity/presentation/add_activity_screen.dart';
-
+import 'package:active_fit/core/presentation/widgets/activity_card.dart';
 import 'package:active_fit/core/presentation/widgets/placeholder_card.dart';
+import 'package:active_fit/core/utils/navigation_options.dart';
+import 'package:active_fit/features/add_activity/presentation/add_activity_screen.dart';
 
 class ActivityVerticalList extends StatelessWidget {
   final DateTime day;

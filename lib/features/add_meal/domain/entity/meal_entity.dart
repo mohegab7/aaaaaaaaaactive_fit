@@ -122,13 +122,22 @@ class MealEntity extends Equatable {
         servingQuantity: fdcFood.servingSize,
         servingUnit: fdcFood.servingSizeUnit,
         servingSize: fdcFood.servingSizeUnit,
-        nutriments:
-            MealNutrimentsEntity.fromFDCNutriments(fdcFood.foodNutrients),
+        nutriments: MealNutrimentsEntity.fromFDCNutriments(fdcFood.foodNutrients),
         source: MealSourceEntity.fdc);
   }
 
   factory MealEntity.fromSpFDCFood(SpFdcFoodDTO foodItem) {
     final fdcId = foodItem.fdcId?.toInt().toString();
+
+    // Try to set mealQuantity from servingAmount or servingSize if possible
+    String? mealQuantityValue;
+    if (foodItem.servingAmount != null) {
+      mealQuantityValue = foodItem.servingAmount!.toString();
+    } else if (foodItem.servingSize != null) {
+      mealQuantityValue = foodItem.servingSize.toString();
+    } else {
+      mealQuantityValue = null;
+    }
 
     return MealEntity(
         code: fdcId,
@@ -136,7 +145,7 @@ class MealEntity extends Equatable {
             SupportedLanguage.fromCode(Platform.localeName)),
         brands: null,
         url: FDCConst.getFoodDetailUrlString(fdcId),
-        mealQuantity: null,
+        mealQuantity: mealQuantityValue,
         mealUnit: FDCConst.fdcDefaultUnit,
         servingQuantity: foodItem.servingSize,
         servingUnit: FDCConst.fdcDefaultUnit,
@@ -183,6 +192,8 @@ class MealEntity extends Equatable {
   @override
   List<Object?> get props => [code, name];
 }
+
+
 
 enum MealSourceEntity {
   unknown,

@@ -6,7 +6,8 @@ class AppConst {
   static const platformNameAndroid = "Android";
   static const platformNameIOS = "iOS";
   static const reportErrorEmail = "active_fit-dev@pm.me";
-  static const sourceCodeUrl = "https://github.com/simonoppowa/active_fit";
+  static const sourceCodeUrl =
+      "https://github.com/simonoppowa/active_fit";
 
   static Future<String> getVersionNumber() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();

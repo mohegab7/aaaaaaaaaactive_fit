@@ -2,318 +2,292 @@ import 'package:active_fit/core/presentation/main_screen.dart';
 import 'package:active_fit/features/login/cubit.dart';
 import 'package:active_fit/features/login/states.dart';
 import 'package:active_fit/features/register/Register_screen.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  var formkey = GlobalKey<FormState>();
-  var emailcontroll = TextEditingController();
-  var passwordcontroll = TextEditingController();
-  
+  final formkey = GlobalKey<FormState>();
+  final emailcontroll = TextEditingController();
+  final passwordcontroll = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    // return Scaffold();
+    final colorScheme = Theme.of(context).colorScheme;
     return BlocProvider(
-        create: (BuildContext context) => LoginCuibt(),
-        child: BlocConsumer<LoginCuibt, LoginStates>(
-          builder: (context, state) {
-            return Scaffold(
-              body: SingleChildScrollView(
-                child: Form(
-                  key: formkey,
-                  child: SafeArea(
+      create: (BuildContext context) => LoginCuibt(),
+      child: BlocConsumer<LoginCuibt, LoginStates>(
+        builder: (context, state) {
+          return Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Form(
+                    key: formkey,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          height: 20.0,
+                        const SizedBox(height: 32),
+                        Text(
+                          'LOGIN',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: colorScheme.primary,
+                              ),
                         ),
-                        const SizedBox(
-                          width: 120,
+                        const SizedBox(height: 24),
+                        Image.asset(
+                          Theme.of(context).brightness == Brightness.light
+                              ? 'assets/icon/active_banner_top.png'
+                              : 'assets/icon/Active_banner_top_light.png',
+                          height: 180,
+                          width: 180,
                         ),
-                        Center(
-                          child: Text(
-                            'LOGIN',
-                            style: Theme.of(context).textTheme.titleLarge,
+                        const SizedBox(height: 32),
+                        TextFormField(
+                          controller: emailcontroll,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: colorScheme.onSurface,
+                                  ),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter your email';
+                            }
+                            if (!value!.contains('@')) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(color: colorScheme.primary),
+                            prefixIcon: Icon(Icons.email_outlined,
+                                color: colorScheme.primary),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide:
+                                  BorderSide(color: colorScheme.outline),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide:
+                                  BorderSide(color: colorScheme.outline),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                  color: colorScheme.primary, width: 2),
+                            ),
+                            filled: true,
+                            fillColor:
+                                colorScheme.surfaceVariant.withOpacity(0.3),
                           ),
                         ),
-                       Center(
-                         child: Image.asset('assets/icon/active_banner_top.png',height: 200,
-                         width: 200
-                         ,),
-                       ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 15),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                10.0,
-                              ),
-                              border: Border.all(
-                                width: 2,
-                                color: const Color(0xff49D199),
-                              ),
-                            ),
-                            child: TextFormField(
-                              controller: emailcontroll,
-                              style: Theme.of(context).textTheme.titleLarge,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return '     Please enter your email    ';
-                                }
-                                return null;
-                              },
-                              // onFieldSubmitted: onSubmit,
-                              // controller: controller,
-
-                              keyboardType: TextInputType.emailAddress,
-
-                              decoration: InputDecoration(
-                                labelStyle:
-                                    Theme.of(context).textTheme.titleLarge,
-                                labelText: 'Email',
-                                prefixIcon: const Icon(Icons.email_outlined),
-                                border: InputBorder.none,
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          controller: passwordcontroll,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: colorScheme.onSurface,
+                                  ),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter your password';
+                            }
+                            if ((value?.length ?? 0) < 6) {
+                              return 'Password must be at least 6 characters';
+                            }
+                            return null;
+                          },
+                          obscureText: LoginCuibt.get(context).ispassword,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(color: colorScheme.primary),
+                            prefixIcon: Icon(Icons.lock_outline,
+                                color: colorScheme.primary),
+                            suffixIcon: IconButton(
+                              onPressed: () =>
+                                  LoginCuibt.get(context).changepassword(),
+                              icon: Icon(
+                                LoginCuibt.get(context).suffix,
+                                color: colorScheme.primary,
                               ),
                             ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide:
+                                  BorderSide(color: colorScheme.outline),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide:
+                                  BorderSide(color: colorScheme.outline),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                  color: colorScheme.primary, width: 2),
+                            ),
+                            filled: true,
+                            fillColor:
+                                colorScheme.surfaceVariant.withOpacity(0.3),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 15),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                10.0,
-                              ),
-                              border: Border.all(
-                                width: 2,
-                                color: const Color(0xff49D199),
-                              ),
-                            ),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return '     Please enter your Password';
-                                }
-                                return null;
-                              },
-                              onFieldSubmitted: (value) {
-                                if (formkey.currentState!.validate()) {
-                                  LoginCuibt.get(context).userLogin(
-                                    email: emailcontroll.text,
-                                    password: passwordcontroll.text,
-                                  );
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MainScreen(),
-                                    ),
-                                    (route) => false,
-                                  );
-                                }
-                              },
-                              controller: passwordcontroll,
-                              obscureText: LoginCuibt.get(context).ispassword,
-                              keyboardType: TextInputType.visiblePassword,
-                              style: Theme.of(context).textTheme.titleLarge,
-                              decoration: InputDecoration(
-                                labelStyle:
-                                    Theme.of(context).textTheme.titleLarge,
-                                labelText: 'password',
-                                prefixIcon: const Icon(Icons.lock_outline),
-                                border: InputBorder.none,
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    LoginCuibt.get(context).changepassword();
-                                  },
-                                  icon: Icon(LoginCuibt.get(context).suffix),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        // SizedBox(
-                        //   height: 30,
-                        // ),
-
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 15),
-                          child: ConditionalBuilder(
-                            condition: true,
-                            builder: (BuildContext context) {
-                              return Container(
-                                width: 370,
-                                height: 52,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: ElevatedButton.icon(
-                                  onPressed: () {
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: ElevatedButton(
+                            onPressed: state is LoginloadingState
+                                ? null
+                                : () {
                                     if (formkey.currentState!.validate()) {
                                       LoginCuibt.get(context).userLogin(
                                         email: emailcontroll.text,
                                         password: passwordcontroll.text,
                                       );
-
-                                      //   Navigator.pushAndRemoveUntil(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) => MainScreen(),
-                                      //     ),
-                                      //     (route) => false,
-                                      //   );
                                     }
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer,
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                  ).copyWith(
-                                      elevation:
-                                          ButtonStyleButton.allOrNull(0.0)),
-                                  icon:
-                                      const Icon(Icons.navigate_next_outlined),
-                                  label: Text('Login',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge),
-                                ),
-                              );
-                            },
-                            fallback: (Context) =>
-                                Center(child: CircularProgressIndicator()),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: colorScheme.primary,
+                              foregroundColor: colorScheme.onPrimary,
+                              disabledBackgroundColor:
+                                  colorScheme.primary.withOpacity(0.5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              elevation: 2,
+                            ),
+                            child: state is LoginloadingState
+                                ? SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          colorScheme.onPrimary),
+                                    ),
+                                  )
+                                : const Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                         ),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 15),
-                            child: Container(
-                              width: 370,
-                              height: 52,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: ElevatedButton.icon(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              RegisterScreen()),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer,
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                  ).copyWith(
-                                      elevation:
-                                          ButtonStyleButton.allOrNull(0.0)),
-                                  icon:
-                                      const Icon(Icons.navigate_next_outlined),
-                                  label: Text('Register',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge)),
-                            )),
-
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // IconButton(
-                            //   icon: FaIcon(
-                            //     FontAwesomeIcons.facebook,
-                            //     color: Colors.blue,
-                            //     size: 40,
-                            //   ),
-                            //   onPressed: () {
-                            //   LoginCuibt.get(context).loginwithfacbook();
-                            //   },
-                            // ),
-                            const SizedBox(
-                              width: 20,
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterScreen()),
+                              );
+                            },
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: colorScheme.primary),
+                              foregroundColor: colorScheme.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
-                            IconButton(
-                                onPressed: () {LoginCuibt.get(context).signInWithGoogle();},
-                                icon: const FaIcon(FontAwesomeIcons.google,
-                                    size: 35)),
+                            child: const Text(
+                              'Register',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Divider(color: colorScheme.outlineVariant),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                'OR',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: colorScheme.onSurfaceVariant,
+                                    ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Divider(color: colorScheme.outlineVariant),
+                            ),
                           ],
+                        ),
+                        const SizedBox(height: 24),
+                        IconButton(
+                          onPressed: () =>
+                              LoginCuibt.get(context).signInWithGoogle(),
+                          icon: const FaIcon(
+                            FontAwesomeIcons.google,
+                            size: 32,
+                          ),
+                          style: IconButton.styleFrom(
+                            foregroundColor: colorScheme.primary,
+                            padding: const EdgeInsets.all(16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: colorScheme.outlineVariant,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
+            ),
+          );
+        },
+        listener: (context, state) {
+          if (state is LoginErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.error),
+                backgroundColor: colorScheme.error,
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.all(16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
             );
-          },
-          listener: (context, state) {
-            if (state is LoginErrorState) {
-              Fluttertoast.showToast(
-                msg: 'error email or password',
-                backgroundColor: Colors.red,
-                fontSize: 20,
-                toastLength: Toast.LENGTH_LONG,
-                timeInSecForIosWeb: 5,
-                textColor: Colors.white,
-                gravity: ToastGravity.BOTTOM,
-              );
-            }
-            if (state is LoginSuccessState) {
-              // CacheHelper.saveData(key: 'uId', value: state).then((value) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MainScreen(),
-                ),
-                (route) => false,
-              );
-            }
-              // );
-            // }
-            
-            if (state is LoginWithGoogleSuccessState) {
-              // CacheHelper.saveData(key: 'uId', value: state).then((value) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MainScreen(),
-                ),
-                (route) => false,
-              );
-            }
-            // );
-            // }
-          },
-        ));
+          }
+          if (state is LoginSuccessState ||
+              state is LoginWithGoogleSuccessState) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const MainScreen()),
+              (route) => false,
+            );
+          }
+        },
+      ),
+    );
   }
 }
-// CacheHelper.saveData(key: 'uId', value: state).then((value) {
-            //   Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => MainScreen(),
-            //     ),
-            //     (route) => false,
-            //   );
-            // }

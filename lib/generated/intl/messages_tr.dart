@@ -50,12 +50,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "allItemsLabel": MessageLookupByLibrary.simpleMessage("Tümü"),
         "alphaVersionName": MessageLookupByLibrary.simpleMessage("[Alfa]"),
         "appDescription": MessageLookupByLibrary.simpleMessage(
-            "OpenNutriTracker, gizliliğinize saygı duyan ücretsiz ve açık kaynaklı bir kalori ve besin takipçisidir."),
+            "active_fit, gizliliğinize saygı duyan ücretsiz ve açık kaynaklı bir kalori ve besin takipçisidir."),
         "appLicenseLabel":
             MessageLookupByLibrary.simpleMessage("GPL-3.0 lisansı"),
-        "appTitle": MessageLookupByLibrary.simpleMessage("OpenNutriTracker"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("active_fit"),
         "appVersionName": m0,
-        "betaVersionName": MessageLookupByLibrary.simpleMessage("[Beta]"),
+        "betaVersionName": MessageLookupByLibrary.simpleMessage(""),
         "bmiInfo": MessageLookupByLibrary.simpleMessage(
             "Vücut Kitle İndeksi (VKİ), yetişkinlerde aşırı kilolu ve obeziteyi sınıflandırmak için kullanılan bir indekstir. Kilogram cinsinden ağırlığın, metre cinsinden boyun karesine bölünmesiyle hesaplanır (kg/m²).\n\nVKİ, yağ ve kas kütlesi arasında ayrım yapmaz ve bazı bireyler için yanıltıcı olabilir."),
         "bmiLabel": MessageLookupByLibrary.simpleMessage("VKİ"),
@@ -108,7 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "örn. çorba, tavuk, şarap ..."),
         "dinnerLabel": MessageLookupByLibrary.simpleMessage("Akşam Yemeği"),
         "disclaimerText": MessageLookupByLibrary.simpleMessage(
-            "OpenNutriTracker tıbbi bir uygulama değildir. Sağlanan tüm veriler doğrulanmamıştır ve dikkatle kullanılmalıdır. Lütfen sağlıklı bir yaşam tarzı sürdürün ve herhangi bir sorununuz varsa bir uzmana danışın. Hastalık, hamilelik veya emzirme döneminde kullanılması önerilmez.\n\n\nUygulama hala geliştirme aşamasındadır. Hatalar, buglar ve çökmeler meydana gelebilir."),
+            "active_fit tıbbi bir uygulama değildir. Sağlanan tüm veriler doğrulanmamıştır ve dikkatle kullanılmalıdır. Lütfen sağlıklı bir yaşam tarzı sürdürün ve herhangi bir sorununuz varsa bir uzmana danışın. Hastalık, hamilelik veya emzirme döneminde kullanılması önerilmez.\n\n\nUygulama hala geliştirme aşamasındadır. Hatalar, buglar ve çökmeler meydana gelebilir."),
         "editItemDialogTitle":
             MessageLookupByLibrary.simpleMessage("Öğeyi düzenle"),
         "editMealLabel": MessageLookupByLibrary.simpleMessage("Yemeği düzenle"),

@@ -1,4 +1,3 @@
-
 class NavigationOptions {
   static const mainRoute = "main";
   static const onboardingRoute = "onboarding";

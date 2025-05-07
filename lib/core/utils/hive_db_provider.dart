@@ -1,21 +1,20 @@
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:active_fit/core/data/data_source/user_activity_dbo.dart';
 import 'package:active_fit/core/data/dbo/app_theme_dbo.dart';
 import 'package:active_fit/core/data/dbo/config_dbo.dart';
 import 'package:active_fit/core/data/dbo/intake_dbo.dart';
 import 'package:active_fit/core/data/dbo/intake_type_dbo.dart';
+import 'package:active_fit/core/data/dbo/physical_activity_dbo.dart';
 import 'package:active_fit/core/data/dbo/meal_dbo.dart';
 import 'package:active_fit/core/data/dbo/meal_nutriments_dbo.dart';
-import 'package:active_fit/core/data/dbo/physical_activity_dbo.dart';
 import 'package:active_fit/core/data/dbo/tracked_day_dbo.dart';
 import 'package:active_fit/core/data/dbo/user_dbo.dart';
 import 'package:active_fit/core/data/dbo/user_gender_dbo.dart';
 import 'package:active_fit/core/data/dbo/user_pal_dbo.dart';
 import 'package:active_fit/core/data/dbo/user_weight_goal_dbo.dart';
-import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-
 
 class HiveDBProvider extends ChangeNotifier {
   static const configBoxName = 'ConfigBox';

@@ -1,10 +1,11 @@
-import 'package:active_fit/core/utils/locator.dart';
-import 'package:active_fit/features/meal_detail/presentation/widgets/meal_placeholder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:active_fit/core/utils/locator.dart';
+import 'package:active_fit/features/meal_detail/presentation/widgets/meal_placeholder.dart';
 
 class ImageFullScreen extends StatefulWidget {
+
   static const fullScreenHeroTag = 'fullScreenTag';
 
   const ImageFullScreen({super.key});

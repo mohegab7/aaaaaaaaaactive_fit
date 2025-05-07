@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `OpenNutriTracker`
+  /// `active_fit`
   String get appTitle {
     return Intl.message(
-      'OpenNutriTracker',
+      'Activefit',
       name: 'appTitle',
       desc: '',
       args: [],
@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `OpenNutriTracker is a free and open-source calorie and nutrient tracker that respects your privacy.`
+  /// `active_fit is a free and open-source calorie and nutrient tracker that respects your privacy.`
   String get appDescription {
     return Intl.message(
-      'OpenNutriTracker is a free and open-source calorie and nutrient tracker that respects your privacy.',
+      'active_fit is a free and open-source calorie and nutrient tracker that respects your privacy.',
       name: 'appDescription',
       desc: '',
       args: [],
@@ -93,7 +93,7 @@ class S {
   /// `[Beta]`
   String get betaVersionName {
     return Intl.message(
-      '[Beta]',
+      '',
       name: 'betaVersionName',
       desc: '',
       args: [],
@@ -730,10 +730,10 @@ class S {
     );
   }
 
-  /// `OpenNutriTracker is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended.\n\n\nThe application is still under development. Errors, bugs and crashes may occur.`
+  /// `active_fit is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended.\n\n\nThe application is still under development. Errors, bugs and crashes may occur.`
   String get disclaimerText {
     return Intl.message(
-      'OpenNutriTracker is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended.\n\n\nThe application is still under development. Errors, bugs and crashes may occur.',
+      'active_fit is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended.\n\n\nThe application is still under development. Errors, bugs and crashes may occur.',
       name: 'disclaimerText',
       desc: '',
       args: [],

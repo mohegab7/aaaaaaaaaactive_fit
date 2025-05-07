@@ -3,7 +3,6 @@ import 'package:active_fit/features/onboarding/domain/entity/user_activity_selec
 import 'package:active_fit/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
-
 class OnboardingThirdPageBody extends StatefulWidget {
   final Function(bool active, UserActivitySelectionEntity? selectedActivity)
       setButtonContent;
@@ -23,214 +22,175 @@ class _OnboardingThirdPageBodyState extends State<OnboardingThirdPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(S.of(context).activityLabel,
-                  style: Theme.of(context).textTheme.headlineSmall),
-            ],
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(S.of(context).onboardingActivityQuestionSubtitle,
-                  style: Theme.of(context).textTheme.titleMedium),
-            ],
-          ),
-          const SizedBox(height: 40.0),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 60,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ChoiceChip(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 70, vertical: 20),
-                      label: Text(S.of(context).palSedentaryLabel,
-                          style: Theme.of(context).textTheme.titleLarge),
-                      selected: _sedentarySelected,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _setSelectedChoiceChip(sedentary: true);
-                          checkCorrectInput();
-                        });
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => InfoDialog(
-                                    title: S.of(context).palSedentaryLabel,
-                                    body: S
-                                        .of(context)
-                                        .palSedentaryDescriptionLabel));
-                          },
-                          child: const Icon(Icons.help_outline_outlined)),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                )
-              ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionTitle(
+              title: S.of(context).activityLabel,
+              subtitle: S.of(context).onboardingActivityQuestionSubtitle,
             ),
-          ),
-          const SizedBox(height: 8.0),
-          SizedBox(
-            width: 400,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ChoiceChip(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 70, vertical: 20),
-                      label: Text(S.of(context).palLowLActiveLabel,
-                          style: Theme.of(context).textTheme.titleLarge),
-                      selected: _lowActiveSelected,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _setSelectedChoiceChip(lowActive: true);
-                          checkCorrectInput();
-                        });
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => InfoDialog(
-                                    title: S.of(context).palLowLActiveLabel,
-                                    body: S
-                                        .of(context)
-                                        .palLowActiveDescriptionLabel));
-                          },
-                          child: const Icon(Icons.help_outline_outlined)),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                )
-              ],
+            const SizedBox(height: 32.0),
+            _buildActivityCard(
+              title: S.of(context).palSedentaryLabel,
+              description: S.of(context).palSedentaryDescriptionLabel,
+              icon: Icons.sentiment_dissatisfied_outlined,
+              isSelected: _sedentarySelected,
+              onTap: () => _setSelectedChoiceChip(sedentary: true),
             ),
-          ),
-          const SizedBox(height: 8.0),
-          SizedBox(
-            width: 340,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 35,
-                    ),
-                    ChoiceChip(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 70, vertical: 20),
-                      label: Text(S.of(context).palActiveLabel,
-                          style: Theme.of(context).textTheme.titleLarge),
-                      selected: _activeSelected,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _setSelectedChoiceChip(active: true);
-                          checkCorrectInput();
-                        });
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => InfoDialog(
-                                    title: S.of(context).palActiveLabel,
-                                    body: S
-                                        .of(context)
-                                        .palActiveDescriptionLabel));
-                          },
-                          child: const Icon(Icons.help_outline_outlined)),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                )
-              ],
+            const SizedBox(height: 16.0),
+            _buildActivityCard(
+              title: S.of(context).palLowLActiveLabel,
+              description: S.of(context).palLowActiveDescriptionLabel,
+              icon: Icons.sentiment_neutral_outlined,
+              isSelected: _lowActiveSelected,
+              onTap: () => _setSelectedChoiceChip(lowActive: true),
             ),
-          ),
-          const SizedBox(height: 8.0),
-          SizedBox(
-            width: 400,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ChoiceChip(
-                  padding: EdgeInsets.symmetric(horizontal: 70, vertical: 20),
-                  label: Text(S.of(context).palVeryActiveLabel,
-                      style: Theme.of(context).textTheme.titleLarge),
-                  selected: _veryActiveSelected,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      _setSelectedChoiceChip(veryActive: true);
-                      checkCorrectInput();
-                    });
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => InfoDialog(
-                                title: S.of(context).palVeryActiveLabel,
-                                body: S
-                                    .of(context)
-                                    .palVeryActiveDescriptionLabel));
-                      },
-                      child: const Icon(Icons.help_outline_outlined)),
-                )
-              ],
+            const SizedBox(height: 16.0),
+            _buildActivityCard(
+              title: S.of(context).palActiveLabel,
+              description: S.of(context).palActiveDescriptionLabel,
+              icon: Icons.sentiment_satisfied_outlined,
+              isSelected: _activeSelected,
+              onTap: () => _setSelectedChoiceChip(active: true),
             ),
-          ),
-        ],
+            const SizedBox(height: 16.0),
+            _buildActivityCard(
+              title: S.of(context).palVeryActiveLabel,
+              description: S.of(context).palVeryActiveDescriptionLabel,
+              icon: Icons.sentiment_very_satisfied_outlined,
+              isSelected: _veryActiveSelected,
+              onTap: () => _setSelectedChoiceChip(veryActive: true),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  void _setSelectedChoiceChip(
-      {sedentary = false,
-      lowActive = false,
-      active = false,
-      veryActive = false}) {
-    _sedentarySelected = sedentary;
-    _lowActiveSelected = lowActive;
-    _activeSelected = active;
-    _veryActiveSelected = veryActive;
+  Widget _buildSectionTitle({required String title, required String subtitle}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+        ),
+        const SizedBox(height: 8.0),
+        Text(
+          subtitle,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                height: 1.5,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActivityCard({
+    required String title,
+    required String description,
+    required IconData icon,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Card(
+      elevation: isSelected ? 2 : 0,
+      color: isSelected
+          ? Theme.of(context).colorScheme.primaryContainer
+          : Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: isSelected
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          width: isSelected ? 2 : 1,
+        ),
+      ),
+      child: InkWell(
+        onTap: () {
+          onTap();
+          checkCorrectInput();
+        },
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                size: 32,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: isSelected
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      description,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.help_outline_outlined,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => InfoDialog(
+                      title: title,
+                      body: description,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _setSelectedChoiceChip({
+    sedentary = false,
+    lowActive = false,
+    active = false,
+    veryActive = false,
+  }) {
+    setState(() {
+      _sedentarySelected = sedentary;
+      _lowActiveSelected = lowActive;
+      _activeSelected = active;
+      _veryActiveSelected = veryActive;
+    });
   }
 
   void checkCorrectInput() {

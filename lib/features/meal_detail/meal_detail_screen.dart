@@ -9,7 +9,6 @@ import 'package:active_fit/features/meal_detail/presentation/bloc/meal_detail_bl
 import 'package:active_fit/features/meal_detail/presentation/widgets/meal_detail_bottom_sheet.dart';
 import 'package:active_fit/features/meal_detail/presentation/widgets/meal_detail_macro_nutrients.dart';
 import 'package:active_fit/features/meal_detail/presentation/widgets/meal_detail_nutriments_table.dart';
-import 'package:active_fit/features/meal_detail/presentation/widgets/meal_info_button.dart';
 import 'package:active_fit/features/meal_detail/presentation/widgets/meal_placeholder.dart';
 import 'package:active_fit/features/meal_detail/presentation/widgets/meal_title_expanded.dart';
 import 'package:active_fit/features/meal_detail/presentation/widgets/off_disclaimer.dart';
@@ -64,6 +63,14 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     intakeTypeEntity = args.intakeTypeEntity;
     _usesImperialUnits = args.usesImperialUnits;
 
+    if (meal.nutriments.energyKcal100 == null ||
+        meal.nutriments.carbohydrates100 == null ||
+        meal.nutriments.fat100 == null ||
+        meal.nutriments.proteins100 == null) {
+      print(
+          "MealDetailScreen: Missing nutritional data for ${meal.name}"); // Debugging
+    }
+
     // Set initial unit
     if (_initialUnit == "") {
       if (meal.hasServingValues) {
@@ -75,7 +82,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
       } else if (meal.isSolid) {
         _initialUnit = _usesImperialUnits
             ? UnitDropdownItem.oz.toString()
-
             : UnitDropdownItem.g.toString();
       } else {
         _initialUnit = UnitDropdownItem.gml.toString();
@@ -258,7 +264,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                     servingQuantity: meal.servingQuantity,
                     servingUnit: meal.servingUnit),
                 const SizedBox(height: 32.0),
-                MealInfoButton(url: meal.url, source: meal.source),
+                //MealInfoButton(url: meal.url, source: meal.source),
                 meal.source == MealSourceEntity.off
                     ? const Column(
                         children: [

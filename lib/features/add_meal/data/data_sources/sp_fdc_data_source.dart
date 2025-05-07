@@ -5,7 +5,6 @@ import 'package:active_fit/core/utils/supported_language.dart';
 import 'package:active_fit/features/add_meal/data/dto/fdc_sp/sp_const.dart';
 import 'package:active_fit/features/add_meal/data/dto/fdc_sp/sp_fdc_food_dto.dart';
 import 'package:logging/logging.dart';
-
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

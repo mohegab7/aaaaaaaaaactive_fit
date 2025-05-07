@@ -29,5 +29,5 @@ class UserEntity {
         pal: UserPALEntity.fromUserPALDBO(userDBO.pal));
   }
 
-  int get age => DateTime.now().difference(birthday).inDays ~/ 365;
+  int get age => DateTime.now().difference(birthday).inDays~/365;
 }

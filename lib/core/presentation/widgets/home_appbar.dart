@@ -16,13 +16,13 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             child: RichText(
               text: TextSpan(
                 text: S.of(context).appTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface),
                 children: <TextSpan>[
                   TextSpan(
-                      text: ' ${S.of(context).betaVersionName}',
+                      text: '' 
+                      // ${S.of(context).betaVersionName}
+                      ,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.onSurface)),

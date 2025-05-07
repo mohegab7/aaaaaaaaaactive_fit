@@ -1,9 +1,9 @@
 {
-  "appTitle": "OpenNutriTracker",
+  "appTitle": "active_fit",
   "appVersionName": "Sürüm {versionNumber}",
-  "appDescription": "OpenNutriTracker, gizliliğinize saygı duyan ücretsiz ve açık kaynaklı bir kalori ve besin takipçisidir.",
-  "alphaVersionName": "[Alfa]",
-  "betaVersionName": "[Beta]",
+  "appDescription": "active_fit, gizliliğinize saygı duyan ücretsiz ve açık kaynaklı bir kalori ve besin takipçisidir.",
+  "alphaVersionName": "",
+  "betaVersionName": "",
 
   "addLabel": "Ekle",
   "createCustomDialogTitle": "Özel yemek öğesi oluşturulsun mu?",
@@ -65,7 +65,7 @@
   "settingsMassLabel": "Kütle",
   "settingsDistanceLabel": "Mesafe",
   "settingsVolumeLabel": "Hacim",
-  "disclaimerText": "OpenNutriTracker tıbbi bir uygulama değildir. Sağlanan tüm veriler doğrulanmamıştır ve dikkatle kullanılmalıdır. Lütfen sağlıklı bir yaşam tarzı sürdürün ve herhangi bir sorununuz varsa bir uzmana danışın. Hastalık, hamilelik veya emzirme döneminde kullanılması önerilmez.\n\n\nUygulama hala geliştirme aşamasındadır. Hatalar, buglar ve çökmeler meydana gelebilir.",
+  "disclaimerText": "active_fit tıbbi bir uygulama değildir. Sağlanan tüm veriler doğrulanmamıştır ve dikkatle kullanılmalıdır. Lütfen sağlıklı bir yaşam tarzı sürdürün ve herhangi bir sorununuz varsa bir uzmana danışın. Hastalık, hamilelik veya emzirme döneminde kullanılması önerilmez.\n\n\nUygulama hala geliştirme aşamasındadır. Hatalar, buglar ve çökmeler meydana gelebilir.",
   "reportErrorDialogText": "Geliştiriciye bir hata bildirmek istiyor musunuz?",
   "sendAnonymousUserData": "Anonim kullanım verilerini gönder",
   "appLicenseLabel": "GPL-3.0 lisansı",

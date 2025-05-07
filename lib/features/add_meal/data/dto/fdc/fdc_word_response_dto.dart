@@ -1,5 +1,5 @@
-import 'package:active_fit/features/add_meal/data/dto/fdc/fdc_food_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'fdc_food_dto.dart';
 
 part 'fdc_word_response_dto.g.dart';
 

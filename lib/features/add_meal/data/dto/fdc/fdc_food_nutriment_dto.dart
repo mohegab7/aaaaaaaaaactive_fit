@@ -1,19 +1,36 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../fdc_sp/sp_const.dart';
-
 part 'fdc_food_nutriment_dto.g.dart';
 
 @JsonSerializable()
 class FDCFoodNutrimentDTO {
-  @JsonKey(name: SPConst.fdcNutrientId)
-  final int? nutrientId;
+  final int? id;
+
+  @JsonKey(name: 'nutrient')
+  final Map<String, dynamic>? nutrientData;
+
   final double? amount;
 
-  FDCFoodNutrimentDTO({required this.nutrientId, required this.amount});
+  int? get nutrientId => nutrientData?['id'] as int?;
+  String? get name => nutrientData?['name'] as String?;
 
-  factory FDCFoodNutrimentDTO.fromJson(Map<String, dynamic> json) =>
-      _$FDCFoodNutrimentDTOFromJson(json);
+  FDCFoodNutrimentDTO({
+    this.id,
+    this.nutrientData,
+    required this.amount,
+  });
 
-  Map<String, dynamic> toJson() => _$FDCFoodNutrimentDTOToJson(this);
+  factory FDCFoodNutrimentDTO.fromJson(Map<String, dynamic> json) {
+    return FDCFoodNutrimentDTO(
+      id: json['id'] as int?,
+      nutrientData: json['nutrient'] as Map<String, dynamic>?,
+      amount: (json['amount'] as num?)?.toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nutrient': nutrientData,
+        'amount': amount,
+      };
 }

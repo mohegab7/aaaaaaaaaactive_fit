@@ -1,3 +1,5 @@
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:get_it/get_it.dart';
 import 'package:active_fit/core/data/data_source/config_data_source.dart';
 import 'package:active_fit/core/data/data_source/intake_data_source.dart';
 import 'package:active_fit/core/data/data_source/physical_activity_data_source.dart';
@@ -33,9 +35,8 @@ import 'package:active_fit/core/utils/secure_app_storage_provider.dart';
 import 'package:active_fit/features/activity_detail/presentation/bloc/activity_detail_bloc.dart';
 import 'package:active_fit/features/add_activity/presentation/bloc/activities_bloc.dart';
 import 'package:active_fit/features/add_activity/presentation/bloc/recent_activities_bloc.dart';
-import 'package:active_fit/features/add_meal/data/data_sources/fdc_data_source.dart';
 import 'package:active_fit/features/add_meal/data/data_sources/off_data_source.dart';
-import 'package:active_fit/features/add_meal/data/data_sources/sp_fdc_data_source.dart';
+import 'package:active_fit/features/add_meal/data/data_sources/edamam_data_source.dart';
 import 'package:active_fit/features/add_meal/data/repository/products_repository.dart';
 import 'package:active_fit/features/add_meal/domain/usecase/search_products_usecase.dart';
 import 'package:active_fit/features/add_meal/presentation/bloc/add_meal_bloc.dart';
@@ -52,9 +53,6 @@ import 'package:active_fit/features/profile/presentation/bloc/profile_bloc.dart'
 import 'package:active_fit/features/scanner/domain/usecase/search_product_by_barcode_usecase.dart';
 import 'package:active_fit/features/scanner/presentation/scanner_bloc.dart';
 import 'package:active_fit/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:get_it/get_it.dart';
-import 'package:supabase/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final locator = GetIt.instance;
@@ -155,8 +153,8 @@ Future<void> initLocator() async {
       .registerLazySingleton<UserRepository>(() => UserRepository(locator()));
   locator.registerLazySingleton<IntakeRepository>(
       () => IntakeRepository(locator()));
-  locator.registerLazySingleton<ProductsRepository>(
-      () => ProductsRepository(locator(), locator(), locator()));
+  locator.registerLazySingleton<ProductsRepository>(() => ProductsRepository(
+      locator<OFFDataSource>(), locator<EdamamDataSource>()));
   locator.registerLazySingleton<UserActivityRepository>(
       () => UserActivityRepository(locator()));
   locator.registerLazySingleton<PhysicalActivityRepository>(
@@ -176,8 +174,7 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<PhysicalActivityDataSource>(
       () => PhysicalActivityDataSource());
   locator.registerLazySingleton<OFFDataSource>(() => OFFDataSource());
-  locator.registerLazySingleton<FDCDataSource>(() => FDCDataSource());
-  locator.registerLazySingleton<SpFdcDataSource>(() => SpFdcDataSource());
+  locator.registerLazySingleton<EdamamDataSource>(() => EdamamDataSource());
   locator.registerLazySingleton(
       () => TrackedDayDataSource(hiveDBProvider.trackedDayBox));
 

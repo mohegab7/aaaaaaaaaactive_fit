@@ -1,4 +1,3 @@
-
 import 'package:active_fit/core/domain/entity/user_entity.dart';
 import 'package:active_fit/core/domain/entity/user_weight_goal_entity.dart';
 import 'package:active_fit/core/utils/calc/tdee_calc.dart';

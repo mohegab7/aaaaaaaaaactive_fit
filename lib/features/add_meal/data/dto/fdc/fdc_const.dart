@@ -177,16 +177,16 @@ class FDCConst {
     return Uri.https(_fdcBaseUrl, _fdcFoodSearchPath, queryParameters);
   }
 
-  // Nutriment codes
-  static const fdcTotalKcalId = 1008;
-  static const fdcKcalAtwaterGeneralId = 957;
-  static const fdcKcalAtwaterSpecificId = 958;
-  static const fdcTotalCarbsId = 1005;
-  static const fdcTotalFatId = 1004;
-  static const fdcTotalProteinsId = 1003;
-  static const fdcTotalSugarId = 1063;
-  static const fdcTotalSaturatedFatId = 1258;
-  static const fdcTotalDietaryFiberId = 1079;
+  // Nutriment codes - Updated to match API response
+  static const fdcTotalKcalId = 1008; // Energy
+  static const fdcKcalAtwaterGeneralId = 208; // Energy (kcal)
+  static const fdcKcalAtwaterSpecificId = 268; // Energy (kJ)
+  static const fdcTotalCarbsId = 205; // Carbohydrates
+  static const fdcTotalFatId = 204; // Total lipids (fat)
+  static const fdcTotalProteinsId = 203; // Protein
+  static const fdcTotalSugarId = 269; // Sugars
+  static const fdcTotalSaturatedFatId = 606; // Saturated fatty acids
+  static const fdcTotalDietaryFiberId = 291; // Dietary fiber
 
   // Measure unit codes
   static const fdcPortionServingId = 1049;

@@ -1,4 +1,3 @@
-
 import 'package:active_fit/core/data/repository/physical_activity_repository.dart';
 import 'package:active_fit/core/domain/entity/physical_activity_entity.dart';
 
